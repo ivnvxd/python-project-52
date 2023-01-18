@@ -18,5 +18,5 @@ check: selfcheck test lint
 dev:
 	poetry run python manage.py runserver
 
-#start:
-#
+start:
+	poetry run gunicorn task_manager.wsgi
