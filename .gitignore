@@ -1,0 +1,25 @@
+# General
+.DS_Store
+.Trashes
+.Spotlight-V100
+Thumbs.db
+$RECYCLE.BIN/
+
+# VsCode
+.vscode
+
+# Idea
+.idea
+
+# Python
+*.egg-info
+__pycache__
+dist/
+*.pyc
+.venv/
+.coverage
+coverage.xml
+.pytest_cache/
+.vim
+
+.env
