@@ -33,7 +33,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'webserver',
-    '127.0.0.1'
+    '127.0.0.1',
+    '.herokuapp.com',
+    '.railway.app',
+    'localhost',
 ]
 
 
