@@ -34,7 +34,6 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'webserver',
     '127.0.0.1',
-    '.herokuapp.com',
     '.railway.app',
     'localhost',
 ]
@@ -49,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap4',
     'task_manager',
 ]
 
@@ -124,6 +124,14 @@ USE_I18N = True
 
 USE_TZ = True
 
+LANGUAGES = (
+    ('en', 'English'),
+    ('ru', 'Russian')
+)
+
+LOCALE_PATHS = (
+    './locale/',
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
