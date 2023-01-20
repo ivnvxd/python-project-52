@@ -22,9 +22,9 @@ check: selfcheck test test-coverage lint
 dev:
 	poetry run python manage.py runserver
 
-PORT ?= 8000
+#PORT ?= 8000
 start:
-	poetry run gunicorn -w 4 -b 0.0.0.0:$(PORT) task_manager.wsgi
+	poetry run gunicorn -w 5 -b 0.0.0.0:$PORT task_manager.wsgi
 
 migrate:
 	poetry run python manage.py makemigrations
