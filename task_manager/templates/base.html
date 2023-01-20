@@ -16,7 +16,7 @@
     </head>
     <body class="d-flex flex-column min-vh-100">
         <header>
-<!--            {# include 'components/navbar.html' #}-->
+            {% include 'navbar.html' %}
         </header>
         <main class="container wrapper flex-grow-1">
 <!--            {# Display django.contrib.messages as Bootstrap alerts #}-->
@@ -24,7 +24,7 @@
             {% block content %}{% endblock %}
         </main>
         <footer>
-<!--            {# include 'components/footer.html' #}-->
+            {% include 'footer.html' %}
         </footer>
         {% bootstrap_javascript jquery='full' %}
     </body>
