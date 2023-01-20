@@ -24,3 +24,6 @@ dev:
 
 start:
 	poetry run gunicorn task_manager.wsgi
+
+migrate:
+	poetry run python manage.py migrate
