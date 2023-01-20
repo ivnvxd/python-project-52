@@ -32,4 +32,4 @@ A flexible task management web application
 </div>
 
 The demo version is available on Railway platform:
-[https://python-project-52-production-ead5.up.railway.app/](https://python-project-52-production-ead5.up.railway.app/)
+[https://python-project-52-production-60d2.up.railway.app/](https://python-project-52-production-60d2.up.railway.app/)
