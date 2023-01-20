@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block content %}
+<div class="container wrapper flex-grow-1">
+    <h1 class="my-4">{{ title }}</h1>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>{% trans 'Username' %}</th>
+            <th>{% trans 'Full name' %}</th>
+            <th>{% trans 'Creation date' %}</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if users %}
+        {% for user in users %}
+        <tr>
+            <td>ID</td>
+            <td>Username</td>
+            <td>{{ user.first_name }} {{ user.last_name }}</td>
+            <td>Creation date</td>
+            <td>
+              <a href="">{% trans 'Update' %}</a>
+              <br>
+              <a href="">{% trans 'Delete' %}</a>
+            </td>
+        {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock content %}

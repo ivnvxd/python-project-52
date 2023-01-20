@@ -18,6 +18,8 @@ django-bootstrap4 = "^22.3"
 [tool.poetry.group.dev.dependencies]
 flake8 = "^6.0.0"
 coverage = "^7.0.5"
+ipython = "^8.8.0"
+django-extensions = "^3.2.1"
 
 [build-system]
 requires = ["poetry-core"]

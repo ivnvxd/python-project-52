@@ -26,4 +26,8 @@ start:
 	poetry run gunicorn task_manager.wsgi
 
 migrate:
+	poetry run python manage.py makemigrations
 	poetry run python manage.py migrate
+
+shell:
+	poetry run python manage.py shell_plus --ipython
