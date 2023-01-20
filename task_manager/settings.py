@@ -125,12 +125,12 @@ USE_I18N = True
 USE_TZ = True
 
 LANGUAGES = (
-    ('en', 'English'),
-    ('ru', 'Russian')
+    ('en-us', 'English'),
+    ('ru', 'Russian'),
 )
 
 LOCALE_PATHS = (
-    './locale/',
+    os.path.join(BASE_DIR, 'locale'),
 )
 
 # Static files (CSS, JavaScript, Images)
