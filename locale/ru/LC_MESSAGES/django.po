@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-20 21:07+0100\n"
+"POT-Creation-Date: 2023-01-21 21:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "source"
 msgstr "Исходный код"
 
-#: task_manager/templates/index.html:9
+#: task_manager/templates/index.html:10
 msgid "Hello, World!"
 msgstr "Хеллоу, ворлд!"
 
@@ -32,17 +32,17 @@ msgstr "Хеллоу, ворлд!"
 msgid "Task manager"
 msgstr "Менеджер задач"
 
-#: task_manager/templates/navbar.html:13
+#: task_manager/templates/navbar.html:13 task_manager/users/views.py:14
 msgid "Users"
 msgstr "Пользователи"
 
 #: task_manager/templates/navbar.html:18
-msgid "Sign Up"
-msgstr "Регистрация"
-
-#: task_manager/templates/navbar.html:21
 msgid "Log In"
 msgstr "Вход"
+
+#: task_manager/templates/navbar.html:21
+msgid "Sign Up"
+msgstr "Регистрация"
 
 #: task_manager/templates/users/users.html:13
 #, fuzzy
@@ -65,3 +65,27 @@ msgstr "Изменить"
 #: task_manager/templates/users/users.html:30
 msgid "Delete"
 msgstr "Удалить"
+
+#: task_manager/users/forms.py:11
+msgid "First name"
+msgstr "Имя"
+
+#: task_manager/users/forms.py:14
+msgid "Last name"
+msgstr "Фамилия"
+
+#: task_manager/users/views.py:23
+msgid "User created successfully"
+msgstr "Пользователь успешно зерегистрирован"
+
+#: task_manager/users/views.py:25
+msgid "Create user"
+msgstr "Регистрация"
+
+#: task_manager/users/views.py:26
+msgid "User registration"
+msgstr "Регистрация нового пользователя"
+
+#: task_manager/users/views.py:27
+msgid "Register"
+msgstr "Зарегистрировать"

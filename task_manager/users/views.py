@@ -1,23 +1,31 @@
-# from django.shortcuts import render
-# from django.views import View
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.utils.translation import gettext_lazy as _
+from django.urls import reverse_lazy
 
-from task_manager.users.models import Users
+from .models import User
+from .forms import UserRegistrationForm
 
 
 class UsersListView(ListView):
     template_name = 'users/users.html'
-    model = Users
-
-    # def get(self, request, *args, **kwargs):
-    #     users = Users.objects.all()
-    #     return render(request, 'users/users.html', context={
-    #         'users': users,
-    #     })
+    model = User
+    context_object_name = 'users'
+    extra_context = {
+        'title': _('Users')
+    }
 
 
 class UserCreateView(CreateView):
-    pass
+    template_name = 'users/create.html'
+    model = User
+    form_class = UserRegistrationForm
+    success_url = reverse_lazy('home')
+    success_message = _('User created successfully')
+    extra_context = {
+        'title': _('Create user'),
+        'description': _('User registration'),
+        'button_text': _('Register'),
+    }
 
 
 class UserUpdateView(UpdateView):

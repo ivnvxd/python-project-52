@@ -1,9 +1,9 @@
 {% extends "base.html" %}
+
 {% load bootstrap4 %}
 {% load i18n %}
 
 {% block content %}
-<div class="container wrapper flex-grow-1">
     <h1 class="my-4">{{ title }}</h1>
 
     <table class="table table-striped">
@@ -20,10 +20,10 @@
         {% if users %}
         {% for user in users %}
         <tr>
-            <td>ID</td>
-            <td>Username</td>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
             <td>{{ user.first_name }} {{ user.last_name }}</td>
-            <td>Creation date</td>
+            <td>{{ user.date_joined|date:"d.m.Y H:i" }}</td>
             <td>
               <a href="">{% trans 'Update' %}</a>
               <br>
@@ -33,6 +33,4 @@
         {% endif %}
         </tbody>
     </table>
-
-</div>
 {% endblock content %}
