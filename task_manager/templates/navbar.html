@@ -15,10 +15,13 @@
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="{# url 'login' #}">{% trans "Log In" %}</a>
+                <a class="nav-link" href="{% url 'login' %}">{% trans "Log In" %}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'sign_up' %}">{% trans "Sign Up" %}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">{% trans "Log Out" %}</a>
             </li>
         </ul>
     </div>
