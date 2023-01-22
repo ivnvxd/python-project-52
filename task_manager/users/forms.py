@@ -8,7 +8,7 @@ from .models import User
 class UserRegistrationForm(UserCreationForm):
 
     first_name = forms.CharField(
-        max_length=150, required=True, label=_("First name")
+        max_length=150, required=True, label=_("First name"), help_text=_("Help text")
     )
     last_name = forms.CharField(
         max_length=150, required=True, label=_("Last name")
@@ -16,6 +16,5 @@ class UserRegistrationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = User
-        # fields = UserCreationForm.Meta.fields #+ ('custom_field',)
         fields = ('first_name', 'last_name', 'username', 'password1', 'password2')
         # fields = '__all__'

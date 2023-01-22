@@ -8,7 +8,6 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="{% block description %}{% endblock %}">
         <title>{% block title %}{% endblock %}</title>
         <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/512/microsoft-todo-2019.png" />
         {% bootstrap_css %}
@@ -18,8 +17,7 @@
             {% include 'navbar.html' %}
         </header>
         <main class="container wrapper flex-grow-1">
-<!--            {# Display django.contrib.messages as Bootstrap alerts #}-->
-<!--            {# bootstrap_messages #}-->
+            {% bootstrap_messages %}
             {% block content %}{% endblock %}
         </main>
         <footer>
