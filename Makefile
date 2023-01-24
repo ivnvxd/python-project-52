@@ -15,7 +15,7 @@ install:
 selfcheck:
 	poetry check
 
-check: selfcheck test test-coverage lint
+check: selfcheck test-coverage lint
 
 dev:
 	poetry run python manage.py runserver

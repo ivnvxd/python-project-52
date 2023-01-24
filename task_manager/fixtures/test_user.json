@@ -1,9 +1,56 @@
 {
-  "valid": {
-    "username": "Richie",
-    "first_name": "Ringo",
-    "last_name": "Starr",
-    "password1": "p@$$word",
-    "password2": "p@$$word"
+  "create": {
+    "valid": {
+      "username": "Richie",
+      "first_name": "Ringo",
+      "last_name": "Starr",
+      "password1": "p@$$w0rd",
+      "password2": "p@$$w0rd"
+    },
+    "missing_fields": {
+      "username": "",
+      "first_name": "",
+      "last_name": "",
+      "password1": "p@$$w0rd",
+      "password2": "p@$$w0rd"
+    },
+    "invalid": {
+      "username": "R!c h1e",
+      "first_name": "Ringo",
+      "last_name": "Starr",
+      "password1": "p@$$w0rd",
+      "password2": "p@$$w0rd"
+    },
+    "exists": {
+      "username": "Lennie",
+      "first_name": "John",
+      "last_name": "Lennon",
+      "password1": "p@$$w0rd",
+      "password2": "p@$$w0rd"
+    },
+    "pass_missing": {
+      "username": "Richie_2",
+      "first_name": "Ringo",
+      "last_name": "Starr",
+      "password1": "",
+      "password2": ""
+    },
+    "pass_not_match": {
+      "username": "Richie_3",
+      "first_name": "Ringo",
+      "last_name": "Starr",
+      "password1": "p@$$w0rd",
+      "password2": "password"
+    },
+    "pass_too_short": {
+      "username": "Richie_4",
+      "first_name": "Ringo",
+      "last_name": "Starr",
+      "password1": "p",
+      "password2": "p"
+    }
+  },
+  "update": {
+    "": ""
   }
 }
