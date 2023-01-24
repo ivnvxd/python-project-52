@@ -1,0 +1,9 @@
+{
+  "valid": {
+    "username": "Richie",
+    "first_name": "Ringo",
+    "last_name": "Starr",
+    "password1": "p@$$word",
+    "password2": "p@$$word"
+  }
+}
