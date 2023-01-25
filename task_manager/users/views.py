@@ -1,10 +1,13 @@
+from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.utils.translation import gettext_lazy as _
-from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
 
+from task_manager.mixins import AuthRequiredMixin
 from .models import User
 from .forms import UserForm
+from .mixins import UserPermissionMixin
+
 
 
 class UsersListView(ListView):
@@ -28,7 +31,8 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     }
 
 
-class UserUpdateView(SuccessMessageMixin, UpdateView):
+class UserUpdateView(AuthRequiredMixin, UserPermissionMixin, SuccessMessageMixin, UpdateView):
+    login_url = reverse_lazy('login')
     template_name = 'users/form.html'  # use other template
     model = User
     form_class = UserForm
@@ -40,7 +44,7 @@ class UserUpdateView(SuccessMessageMixin, UpdateView):
     }
 
 
-class UserDeleteView(SuccessMessageMixin, DeleteView):
+class UserDeleteView(AuthRequiredMixin, UserPermissionMixin, SuccessMessageMixin, DeleteView):
     template_name = 'users/delete.html'
     model = User
     success_url = reverse_lazy('users')
