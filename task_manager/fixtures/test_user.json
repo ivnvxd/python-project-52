@@ -51,6 +51,10 @@
     }
   },
   "update": {
-    "": ""
+    "username": "First",
+    "first_name": "Stuart",
+    "last_name": "Sutcliffe",
+    "password1": "password",
+    "password2": "password"
   }
 }

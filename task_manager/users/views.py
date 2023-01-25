@@ -9,7 +9,6 @@ from .forms import UserForm
 from .mixins import UserPermissionMixin
 
 
-
 class UsersListView(ListView):
     template_name = 'users/users.html'
     model = User
@@ -31,7 +30,8 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     }
 
 
-class UserUpdateView(AuthRequiredMixin, UserPermissionMixin, SuccessMessageMixin, UpdateView):
+class UserUpdateView(AuthRequiredMixin, UserPermissionMixin,
+                     SuccessMessageMixin, UpdateView):
     login_url = reverse_lazy('login')
     template_name = 'users/form.html'  # use other template
     model = User
@@ -44,7 +44,8 @@ class UserUpdateView(AuthRequiredMixin, UserPermissionMixin, SuccessMessageMixin
     }
 
 
-class UserDeleteView(AuthRequiredMixin, UserPermissionMixin, SuccessMessageMixin, DeleteView):
+class UserDeleteView(AuthRequiredMixin, UserPermissionMixin,
+                     SuccessMessageMixin, DeleteView):
     template_name = 'users/delete.html'
     model = User
     success_url = reverse_lazy('users')

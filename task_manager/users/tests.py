@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.test import Client
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ObjectDoesNotExist
 
 from task_manager.helpers import load_data
 from .models import User
@@ -57,8 +58,6 @@ class TestCreateUser(UserTestCase):
         self.assertTemplateUsed(response, template_name='users/form.html')
 
     def test_create_valid_user(self) -> None:
-        self.client.logout()
-
         user_data = self.test_user['create']['valid'].copy()
         response = self.client.post(reverse_lazy('sign_up'), data=user_data)
 
@@ -72,8 +71,6 @@ class TestCreateUser(UserTestCase):
         )
 
     def test_create_fields_missing(self) -> None:
-        self.client.logout()
-
         user_data = self.test_user['create']['missing_fields'].copy()
         response = self.client.post(reverse_lazy('sign_up'), data=user_data)
         errors = response.context['form'].errors
@@ -101,8 +98,6 @@ class TestCreateUser(UserTestCase):
         self.assertEqual(User.objects.count(), self.count)
 
     def test_create_invalid_username(self) -> None:
-        self.client.logout()
-
         user_data = self.test_user['create']['invalid'].copy()
         response = self.client.post(reverse_lazy('sign_up'), data=user_data)
         errors = response.context['form'].errors
@@ -118,8 +113,6 @@ class TestCreateUser(UserTestCase):
         self.assertEqual(User.objects.count(), self.count)
 
     def test_create_username_exists(self) -> None:
-        self.client.logout()
-
         user_data = self.test_user['create']['exists'].copy()
         response = self.client.post(reverse_lazy('sign_up'), data=user_data)
         errors = response.context['form'].errors
@@ -134,8 +127,6 @@ class TestCreateUser(UserTestCase):
         self.assertEqual(User.objects.count(), self.count)
 
     def test_create_long_fields(self) -> None:
-        self.client.logout()
-
         user_data = self.test_user['create']['valid'].copy()
         user_data.update({'username': 'username' * 20})
         user_data.update({'first_name': 'firstname' * 20})
@@ -169,8 +160,6 @@ class TestCreateUser(UserTestCase):
         self.assertEqual(User.objects.count(), self.count)
 
     def test_create_password_missing(self) -> None:
-        self.client.logout()
-
         user_data = self.test_user['create']['pass_missing'].copy()
         response = self.client.post(reverse_lazy('sign_up'), data=user_data)
         errors = response.context['form'].errors
@@ -192,8 +181,6 @@ class TestCreateUser(UserTestCase):
         self.assertEqual(User.objects.count(), self.count)
 
     def test_create_password_dont_match(self) -> None:
-        self.client.logout()
-
         user_data = self.test_user['create']['pass_not_match'].copy()
         response = self.client.post(reverse_lazy('sign_up'), data=user_data)
         errors = response.context['form'].errors
@@ -208,8 +195,6 @@ class TestCreateUser(UserTestCase):
         self.assertEqual(User.objects.count(), self.count)
 
     def test_create_password_too_short(self) -> None:
-        self.client.logout()
-
         user_data = self.test_user['create']['pass_too_short'].copy()
         response = self.client.post(reverse_lazy('sign_up'), data=user_data)
         errors = response.context['form'].errors
@@ -226,20 +211,120 @@ class TestCreateUser(UserTestCase):
 
 
 class TestUpdateUser(UserTestCase):
-    def test_update_view(self) -> None:
+    def test_update_self_view(self) -> None:
+        self.client.force_login(self.user2)
+
         response = self.client.get(
-            reverse_lazy('user_update', kwargs={'pk': 1})
+            reverse_lazy('user_update', kwargs={'pk': 2})
         )
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, template_name='users/form.html')
 
+    def test_update_not_logged_in_view(self) -> None:
+        response = self.client.get(
+            reverse_lazy('user_update', kwargs={'pk': 2})
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse_lazy('login'))
+
+    def test_delete_other_view(self) -> None:
+        self.client.force_login(self.user1)
+
+        response = self.client.get(
+            reverse_lazy('user_update', kwargs={'pk': 2})
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse_lazy('users'))
+
+    def test_update_self(self) -> None:
+        self.client.force_login(self.user2)
+
+        user_data = self.test_user['update'].copy()
+        response = self.client.post(
+            reverse_lazy('user_update', kwargs={'pk': 2}),
+            data=user_data
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse_lazy('users'))
+
+        self.assertEqual(User.objects.count(), self.count)
+        self.assertEqual(
+            User.objects.get(id=self.user2.id).first_name,
+            user_data['first_name']
+        )
+
+    def test_update_other(self) -> None:
+        self.client.force_login(self.user1)
+
+        user_data = self.test_user['update'].copy()
+        response = self.client.post(
+            reverse_lazy('user_update', kwargs={'pk': 2}),
+            data=user_data
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse_lazy('users'))
+
+        self.assertEqual(User.objects.count(), self.count)
+        self.assertNotEqual(
+            User.objects.get(id=self.user2.id).first_name,
+            user_data['first_name']
+        )
+
 
 class TestDeleteUser(UserTestCase):
-    def test_delete_view(self) -> None:
+    def test_delete_self_view(self) -> None:
+        self.client.force_login(self.user3)
+
         response = self.client.get(
             reverse_lazy('user_delete', kwargs={'pk': 3})
         )
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, template_name='users/delete.html')
+
+    def test_delete_not_logged_in_view(self) -> None:
+        response = self.client.get(
+            reverse_lazy('user_delete', kwargs={'pk': 3})
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse_lazy('login'))
+
+    def test_delete_other_view(self) -> None:
+        self.client.force_login(self.user1)
+
+        response = self.client.get(
+            reverse_lazy('user_delete', kwargs={'pk': 3})
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse_lazy('users'))
+
+    def test_delete_self(self) -> None:
+        self.client.force_login(self.user3)
+
+        response = self.client.post(
+            reverse_lazy('user_delete', kwargs={'pk': 3})
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse_lazy('users'))
+        self.assertEqual(User.objects.count(), self.count - 1)
+        with self.assertRaises(ObjectDoesNotExist):
+            User.objects.get(id=self.user3.id)
+
+    def test_delete_other(self) -> None:
+        self.client.force_login(self.user1)
+
+        response = self.client.post(
+            reverse_lazy('user_delete', kwargs={'pk': 3})
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse_lazy('users'))
+        self.assertEqual(User.objects.count(), self.count)
