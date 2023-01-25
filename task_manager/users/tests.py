@@ -55,7 +55,7 @@ class TestCreateUser(UserTestCase):
         response = self.client.get(reverse_lazy('sign_up'))
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, template_name='users/form.html')
+        self.assertTemplateUsed(response, template_name='form.html')
 
     def test_create_valid_user(self) -> None:
         user_data = self.test_user['create']['valid'].copy()
@@ -219,7 +219,7 @@ class TestUpdateUser(UserTestCase):
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, template_name='users/form.html')
+        self.assertTemplateUsed(response, template_name='form.html')
 
     def test_update_not_logged_in_view(self) -> None:
         response = self.client.get(

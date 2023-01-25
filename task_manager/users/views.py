@@ -19,7 +19,7 @@ class UsersListView(ListView):
 
 
 class UserCreateView(SuccessMessageMixin, CreateView):
-    template_name = 'users/form.html'
+    template_name = 'form.html'
     model = User
     form_class = UserForm
     success_url = reverse_lazy('login')
@@ -33,7 +33,7 @@ class UserCreateView(SuccessMessageMixin, CreateView):
 class UserUpdateView(AuthRequiredMixin, UserPermissionMixin,
                      SuccessMessageMixin, UpdateView):
     login_url = reverse_lazy('login')
-    template_name = 'users/form.html'  # use other template
+    template_name = 'form.html'
     model = User
     form_class = UserForm
     success_url = reverse_lazy('users')

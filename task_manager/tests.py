@@ -29,7 +29,7 @@ class TestLoginUser(TestCase):
         response = self.client.get(reverse_lazy('login'))
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, template_name='users/form.html')
+        self.assertTemplateUsed(response, template_name='form.html')
 
     def test_user_login(self) -> None:
         response = self.client.post(
