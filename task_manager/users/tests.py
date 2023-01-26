@@ -23,7 +23,6 @@ class UserTestCase(TestCase):
 
 
 class TestReadUser(UserTestCase):
-
     def test_users_view(self) -> None:
         response = self.client.get(reverse_lazy('users'))
 
@@ -229,7 +228,7 @@ class TestUpdateUser(UserTestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse_lazy('login'))
 
-    def test_delete_other_view(self) -> None:
+    def test_update_other_view(self) -> None:
         self.client.force_login(self.user1)
 
         response = self.client.get(
