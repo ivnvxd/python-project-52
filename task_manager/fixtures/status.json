@@ -1,0 +1,26 @@
+[
+  {
+    "model": "statuses.status",
+    "pk": 1,
+    "fields": {
+      "name": "Started",
+      "date_created": "2023-01-24T16:20:30.456Z"
+    }
+  },
+  {
+    "model": "statuses.status",
+    "pk": 2,
+    "fields": {
+      "name": "Paused",
+      "date_created": "2023-01-25T20:12:25.789Z"
+    }
+  },
+  {
+    "model": "statuses.status",
+    "pk": 3,
+    "fields": {
+      "name": "Finished",
+      "date_created": "2023-01-26T12:59:15.123Z"
+    }
+  }
+]
