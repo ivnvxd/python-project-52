@@ -1,0 +1,28 @@
+{
+  "create": {
+    "valid": {
+      "name": "Code",
+      "description": "It is time",
+      "executor": 2,
+      "status": 1
+    },
+    "missing_fields": {
+      "name": "",
+      "description": "",
+      "executor": "",
+      "status": ""
+    },
+    "exists": {
+      "name": "Sleep",
+      "description": "",
+      "executor": 2,
+      "status": 1
+    }
+  },
+  "update": {
+      "name": "Dream",
+      "description": "",
+      "executor": 2,
+      "status": 2
+    }
+}

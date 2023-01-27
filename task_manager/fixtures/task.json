@@ -1,0 +1,38 @@
+[
+  {
+    "model": "tasks.task",
+    "pk": 1,
+    "fields": {
+      "name": "Eat",
+      "description": "Make it now!",
+      "author": 1,
+      "executor": 3,
+      "status": 1,
+      "date_created": "2023-01-26T16:20:45.789Z"
+    }
+  },
+  {
+    "model": "tasks.task",
+    "pk": 2,
+    "fields": {
+      "name": "Sleep",
+      "description": "Zzzzz",
+      "author": 1,
+      "executor": 1,
+      "status": 1,
+      "date_created": "2023-01-27T09:20:43.123Z"
+    }
+  },
+  {
+    "model": "tasks.task",
+    "pk": 3,
+    "fields": {
+      "name": "Repeat",
+      "description": "Again",
+      "author": 3,
+      "executor": 2,
+      "status": 1,
+      "date_created": "2023-01-27T12:45:30.456Z"
+    }
+  }
+]

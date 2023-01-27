@@ -10,7 +10,7 @@ class Task(models.Model):
         max_length=150,
         blank=False,
         unique=True,
-        verbose_name=_('Task name')
+        verbose_name=_('Name')
     )
     description = models.TextField(
         blank=True,
