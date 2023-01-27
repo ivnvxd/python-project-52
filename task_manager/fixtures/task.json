@@ -30,7 +30,7 @@
       "name": "Repeat",
       "description": "Again",
       "author": 3,
-      "executor": 2,
+      "executor": 1,
       "status": 1,
       "date_created": "2023-01-27T12:45:30.456Z"
     }

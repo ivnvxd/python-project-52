@@ -7,7 +7,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from task_manager.helpers import load_data
 from .models import Task
 from task_manager.users.models import User
-# from task_manager.statuses.models import Status
 
 
 class TaskTestCase(TestCase):

@@ -9,7 +9,7 @@ from .models import User
 
 
 class UserTestCase(TestCase):
-    fixtures = ['user.json']
+    fixtures = ['user.json', 'status.json', 'task.json']
     test_user = load_data('test_user.json')
 
     def setUp(self) -> None:
@@ -305,7 +305,20 @@ class TestDeleteUser(UserTestCase):
         self.assertRedirects(response, reverse_lazy('users'))
 
     def test_delete_self(self) -> None:
-        self.client.force_login(self.user3)
+        self.client.force_login(self.user2)
+
+        response = self.client.post(
+            reverse_lazy('user_delete', kwargs={'pk': 2})
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse_lazy('users'))
+        self.assertEqual(User.objects.count(), self.count - 1)
+        with self.assertRaises(ObjectDoesNotExist):
+            User.objects.get(id=self.user2.id)
+
+    def test_delete_other(self) -> None:
+        self.client.force_login(self.user1)
 
         response = self.client.post(
             reverse_lazy('user_delete', kwargs={'pk': 3})
@@ -313,12 +326,10 @@ class TestDeleteUser(UserTestCase):
 
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse_lazy('users'))
-        self.assertEqual(User.objects.count(), self.count - 1)
-        with self.assertRaises(ObjectDoesNotExist):
-            User.objects.get(id=self.user3.id)
+        self.assertEqual(User.objects.count(), self.count)
 
-    def test_delete_other(self) -> None:
-        self.client.force_login(self.user1)
+    def test_delete_bound_user(self) -> None:
+        self.client.force_login(self.user3)
 
         response = self.client.post(
             reverse_lazy('user_delete', kwargs={'pk': 3})

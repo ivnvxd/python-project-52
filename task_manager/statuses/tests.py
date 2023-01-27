@@ -10,7 +10,7 @@ from task_manager.users.models import User
 
 
 class StatusTestCase(TestCase):
-    fixtures = ['user.json', 'status.json']
+    fixtures = ['user.json', 'status.json', 'task.json']
     test_status = load_data('test_status.json')
 
     def setUp(self) -> None:
@@ -23,6 +23,7 @@ class StatusTestCase(TestCase):
         self.count = Status.objects.count()
 
         self.user1 = User.objects.get(pk=1)
+
         self.client.force_login(self.user1)
 
 
@@ -246,6 +247,11 @@ class TestDeleteStatus(StatusTestCase):
         self.assertRedirects(response, reverse_lazy('login'))
         self.assertEqual(Status.objects.count(), self.count)
 
-    # TODO: add this test after adding tasks
     def test_delete_bound_status(self) -> None:
-        pass
+        response = self.client.post(
+            reverse_lazy('status_delete', kwargs={'pk': 1})
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse_lazy('statuses'))
+        self.assertEqual(Status.objects.count(), self.count)
