@@ -6,16 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from task_manager.users.models import User
 
 
-class HomePageTestCase(TestCase):
-
-    def test_index_view(self) -> None:
-        response = self.client.get(reverse_lazy('home'))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, template_name='index.html')
-        self.assertContains(response, _('Hello, World!'), status_code=200)
-
-
-class TestLoginUser(TestCase):
+class HomeTestCase(TestCase):
     def setUp(self) -> None:
         self.client = Client()
 
@@ -25,6 +16,38 @@ class TestLoginUser(TestCase):
         }
         self.user = User.objects.create_user(**self.credentials)
 
+
+class HomePageTestCase(HomeTestCase):
+    def test_index_view(self) -> None:
+        response = self.client.get(reverse_lazy('home'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template_name='index.html')
+        self.assertContains(response, _('Hello, World!'), status_code=200)
+
+    def test_header_links_logged_in(self) -> None:
+        self.client.force_login(self.user)
+        response = self.client.get(reverse_lazy('home'))
+
+        self.assertContains(response, '/users/')
+        self.assertContains(response, '/statuses/')
+        self.assertContains(response, '/tasks/')
+        self.assertContains(response, '/logout/')
+
+        self.assertNotContains(response, '/login/')
+
+    def test_header_links_not_logged_in(self) -> None:
+        response = self.client.get(reverse_lazy('home'))
+
+        self.assertContains(response, '/users/')
+        self.assertContains(response, '/login/')
+
+        self.assertNotContains(response, '/statuses/')
+        self.assertNotContains(response, '/tasks/')
+        self.assertNotContains(response, '/logout/')
+
+
+class TestLoginUser(HomeTestCase):
     def test_user_login_view(self) -> None:
         response = self.client.get(reverse_lazy('login'))
 
