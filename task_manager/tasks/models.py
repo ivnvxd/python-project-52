@@ -16,7 +16,7 @@ class Task(models.Model):
         blank=True,
         verbose_name=_('Description')
     )
-    created_date = models.DateTimeField(
+    date_created = models.DateTimeField(
         auto_now_add=True,
         verbose_name=_('Creation date')
     )
