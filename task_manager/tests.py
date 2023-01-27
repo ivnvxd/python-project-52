@@ -31,6 +31,7 @@ class HomePageTestCase(HomeTestCase):
 
         self.assertContains(response, '/users/')
         self.assertContains(response, '/statuses/')
+        self.assertContains(response, '/labels/')
         self.assertContains(response, '/tasks/')
         self.assertContains(response, '/logout/')
 
@@ -43,6 +44,7 @@ class HomePageTestCase(HomeTestCase):
         self.assertContains(response, '/login/')
 
         self.assertNotContains(response, '/statuses/')
+        self.assertNotContains(response, '/labels/')
         self.assertNotContains(response, '/tasks/')
         self.assertNotContains(response, '/logout/')
 
