@@ -51,7 +51,7 @@ class StatusUpdateView(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
     success_url = reverse_lazy('statuses')
     success_message = _('Status successfully changed')
     extra_context = {
-        'title': _('Status change'),
+        'title': _('Change status'),
         'button_text': _('Change'),
     }
 
@@ -59,7 +59,7 @@ class StatusUpdateView(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
 class StatusDeleteView(AuthRequiredMixin, DeleteProtectionMixin,
                        SuccessMessageMixin, DeleteView):
     """
-    Delete existing user.
+    Delete existing status.
 
     Authorization required.
     If the status is associated with at least one task it cannot be deleted.
