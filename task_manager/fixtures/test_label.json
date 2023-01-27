@@ -1,0 +1,16 @@
+{
+  "create": {
+    "valid": {
+      "name": "Blog"
+    },
+    "missing_fields": {
+      "name": ""
+    },
+    "exists": {
+      "name": "Study"
+    }
+  },
+  "update": {
+    "name": "Urgent"
+  }
+}

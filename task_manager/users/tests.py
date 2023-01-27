@@ -9,7 +9,7 @@ from .models import User
 
 
 class UserTestCase(TestCase):
-    fixtures = ['user.json', 'status.json', 'task.json']
+    fixtures = ['user.json', 'status.json', 'task.json', 'label.json']
     test_user = load_data('test_user.json')
 
     def setUp(self) -> None:

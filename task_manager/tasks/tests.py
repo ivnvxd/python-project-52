@@ -10,7 +10,7 @@ from task_manager.users.models import User
 
 
 class TaskTestCase(TestCase):
-    fixtures = ['user.json', 'status.json', 'task.json']
+    fixtures = ['user.json', 'status.json', 'task.json', 'label.json']
     test_task = load_data('test_task.json')
 
     def setUp(self) -> None:
