@@ -23,7 +23,7 @@ class HomePageTestCase(HomeTestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, template_name='index.html')
-        self.assertContains(response, _('Hello, World!'), status_code=200)
+        self.assertContains(response, _('Task Manager'), status_code=200)
 
     def test_header_links_logged_in(self) -> None:
         self.client.force_login(self.user)

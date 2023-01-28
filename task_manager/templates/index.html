@@ -1,11 +1,27 @@
 {% extends 'base.html' %}
 
+{% load bootstrap4 %}
 {% load i18n %}
 
-{% block title %}
-    Менеджер задач
-{% endblock %}
+{% block title %} {% trans 'Task Manager' %}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Hello, World!" %}</h1>
+    <div class="card">
+        <div class="card-body p-5 bg-light">
+            <h1 class="my-4 display-4">{% trans 'Task Manager' %}</h1>
+            <p class="lead">{% trans 'Simple and flexible task management web application' %}</p>
+
+            <hr>
+
+            {% if user.is_authenticated %}
+                <a class="btn btn-primary btn-lg" href="{% url 'tasks' %}">
+            {% else %}
+                <a class="btn btn-primary btn-lg" href="{% url 'login' %}">
+            {% endif %}
+
+            {% trans 'Get Started' %}
+            </a>
+
+        </div>
+    </div>
 {% endblock %}
