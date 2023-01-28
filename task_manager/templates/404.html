@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block title %}{% trans 'Page not found' %} | {% trans 'Task Manager' %}{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body p-5">
+            <h1>{% trans 'Not Found' %}</h1>
+            <p>{% trans 'This is not what you are looking for' %}</p>
+
+            <hr>
+
+            <a class="btn btn-primary" href="{% url 'home' %}">
+                {% trans 'Back to the home page' %}
+            </a>
+        </div>
+    </div>
+{% endblock content %}
+
+
+
+
+
