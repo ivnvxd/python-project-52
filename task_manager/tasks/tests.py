@@ -7,6 +7,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from task_manager.helpers import load_data
 from .models import Task
 from task_manager.users.models import User
+from task_manager.statuses.models import Status
+from task_manager.labels.models import Label
 
 
 class TaskTestCase(TestCase):
@@ -25,10 +27,14 @@ class TaskTestCase(TestCase):
         self.user1 = User.objects.get(pk=1)
         self.user2 = User.objects.get(pk=2)
 
+        self.status1 = Status.objects.get(pk=1)
+
+        self.label2 = Label.objects.get(pk=2)
+
         self.client.force_login(self.user1)
 
 
-class TestReadTask(TaskTestCase):
+class TestListTasks(TaskTestCase):
     def test_tasks_view(self) -> None:
         response = self.client.get(reverse_lazy('tasks'))
 
@@ -64,6 +70,52 @@ class TestReadTask(TaskTestCase):
 
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse_lazy('login'))
+
+
+class TestFilterTasks(TaskTestCase):
+    def test_filter_tasks_by_status(self) -> None:
+        response = self.client.get(
+            reverse_lazy('tasks'),
+            {'status': self.status1.pk}
+        )
+
+        self.assertEqual(response.context['tasks'].count(), 2)
+        self.assertContains(response, self.task1.name)
+        self.assertContains(response, self.task2.name)
+        self.assertNotContains(response, self.task3.name)
+
+    def test_filter_tasks_by_executor(self) -> None:
+        response = self.client.get(
+            reverse_lazy('tasks'),
+            {'executor': self.user1.pk}
+        )
+
+        self.assertEqual(response.context['tasks'].count(), 2)
+        self.assertNotContains(response, self.task1.name)
+        self.assertContains(response, self.task2.name)
+        self.assertContains(response, self.task3.name)
+
+    def test_filter_tasks_by_label(self) -> None:
+        response = self.client.get(
+            reverse_lazy('tasks'),
+            {'label': self.label2.pk}
+        )
+
+        self.assertEqual(response.context['tasks'].count(), 1)
+        self.assertNotContains(response, self.task1.name)
+        self.assertNotContains(response, self.task2.name)
+        self.assertContains(response, self.task3.name)
+
+    def test_filter_tasks_by_own_tasks(self) -> None:
+        response = self.client.get(
+            reverse_lazy('tasks'),
+            {'own_tasks': 'on'}
+        )
+
+        self.assertEqual(response.context['tasks'].count(), 2)
+        self.assertContains(response, self.task1.name)
+        self.assertContains(response, self.task2.name)
+        self.assertNotContains(response, self.task3.name)
 
 
 class TestCreateTask(TaskTestCase):
