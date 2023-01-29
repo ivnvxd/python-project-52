@@ -10,7 +10,7 @@ packages = [{include = "task_manager"}]
 python = "^3.8.1"
 Django = "^4.1.5"
 python-dotenv = "^0.21.0"
-dj-database-url = "^1.2.0"
+dj-database-url = "^0.5.0"
 gunicorn = "^20.1.0"
 django-bootstrap4 = "^22.3"
 whitenoise = "^6.3.0"
