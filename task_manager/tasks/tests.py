@@ -118,6 +118,48 @@ class TestFilterTasks(TaskTestCase):
         self.assertNotContains(response, self.task3.name)
 
 
+class TestDetailedTask(TaskTestCase):
+    def test_detailed_task_view(self) -> None:
+        response = self.client.get(
+            reverse_lazy('task_show', kwargs={'pk': 3})
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            template_name='tasks/task_show.html'
+        )
+
+    def test_detailed_task_content(self) -> None:
+        response = self.client.get(
+            reverse_lazy('task_show', kwargs={'pk': 3})
+        )
+
+        labels = self.task3.labels.all()
+
+        self.assertContains(response, '/tasks/3/update/')
+        self.assertContains(response, '/tasks/3/delete/')
+
+        self.assertContains(response, self.task3.name)
+        self.assertContains(response, self.task3.description)
+        self.assertContains(response, self.task3.author)
+        self.assertContains(response, self.task3.executor)
+        self.assertContains(response, self.task3.status)
+
+        for label in labels:
+            self.assertContains(response, label.name)
+
+    def test_detailed_task_not_logged_in(self) -> None:
+        self.client.logout()
+
+        response = self.client.get(
+            reverse_lazy('task_show', kwargs={'pk': 3})
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse_lazy('login'))
+
+
 class TestCreateTask(TaskTestCase):
     def test_create_task_view(self) -> None:
         response = self.client.get(reverse_lazy('task_create'))
