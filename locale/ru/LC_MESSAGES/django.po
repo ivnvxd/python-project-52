@@ -127,7 +127,7 @@ msgstr "Status с таким Имя уже существует."
 
 #: task_manager/statuses/views.py:35
 msgid "Status successfully created"
-msgstr ""
+msgstr "Статус успешно создан"
 
 #: task_manager/statuses/views.py:37
 #: task_manager/templates/statuses/statuses.html:13
@@ -282,7 +282,7 @@ msgstr "Изменить"
 #: task_manager/templates/tasks/tasks.html:50
 #: task_manager/templates/users/users.html:33
 msgid "Delete"
-msgstr "Да, удалить"
+msgstr "Удалить"
 
 #: task_manager/templates/navbar.html:4 task_manager/views.py:12
 msgid "Task manager"
