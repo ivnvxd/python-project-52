@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.utils.translation import gettext_lazy as _
 from django.contrib.messages.views import SuccessMessageMixin
 from django_filters.views import FilterView
@@ -24,6 +24,20 @@ class TasksListView(AuthRequiredMixin, FilterView):
     extra_context = {
         'title': _('Tasks'),
         'button_text': _('Show'),
+    }
+
+
+class TaskDetailView(AuthRequiredMixin, DetailView):
+    """
+    Show one task details.
+
+    Authorisation required.
+    """
+    template_name = 'tasks/task_show.html'
+    model = Task
+    context_object_name = 'task'
+    extra_context = {
+        'title': _('Task preview')
     }
 
 

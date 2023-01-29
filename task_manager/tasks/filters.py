@@ -8,7 +8,7 @@ from task_manager.labels.models import Label
 
 class TaskFilter(FilterSet):
 
-    label = ModelChoiceFilter(
+    labels = ModelChoiceFilter(
         queryset=Label.objects.all(),
         label=_('Label')
     )

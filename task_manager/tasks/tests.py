@@ -98,7 +98,7 @@ class TestFilterTasks(TaskTestCase):
     def test_filter_tasks_by_label(self) -> None:
         response = self.client.get(
             reverse_lazy('tasks'),
-            {'label': self.label2.pk}
+            {'labels': self.label2.pk}
         )
 
         self.assertEqual(response.context['tasks'].count(), 1)

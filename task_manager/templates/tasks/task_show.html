@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block title %}
+    {{ task.name }} | {% trans 'Task Manager' %}
+{% endblock %}
+
+{% block content %}
+    <h1 class="my-4">{{ title }}</h1>
+
+    <div class="card">
+        <div class="card-header bg-secondary text-white">
+            <h2>{{ task.name }}</h2>
+        </div>
+
+        <div class="card-body bg-light">
+            <p>{{ task.description }}</p>
+
+            <hr>
+
+            <div class="container">
+
+                <div class="row p-1">
+                    <div class="col">{% trans 'Author' %}</div>
+                    <div class="col">{{ task.author }}</div>
+                </div>
+
+                <div class="row p-1">
+                    <div class="col">{% trans 'Executor' %}</div>
+                    <div class="col">{{ task.executor }}</div>
+                </div>
+
+                <div class="row p-1">
+                    <div class="col">{% trans 'Status' %}</div>
+                    <div class="col">{{ task.status }}</div>
+                </div>
+
+                <div class="row p-1">
+                    <div class="col">{% trans 'Creation date' %}</div>
+                    <div class="col">{{ task.date_created|date:"d.m.Y H:i" }}</div>
+                </div>
+
+                <div class="row p-1">
+                    <div class="col">
+                        <h6>{% trans 'Labels' %}:</h6>
+                        <ul>
+                            {% for label in task.labels.all %}
+                                <li>{{  label.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row p-1">
+                    <div class="col">
+                        <a href="{% url 'task_update' task.id %}">{% trans 'Update' %}</a>
+                        <br>
+                        <a href="{% url 'task_delete' task.id %}">{% trans 'Delete' %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

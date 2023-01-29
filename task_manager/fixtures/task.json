@@ -9,7 +9,7 @@
       "executor": 3,
       "status": 1,
       "date_created": "2023-01-26T16:20:45.789Z",
-      "label": []
+      "labels": []
     }
   },
   {
@@ -22,7 +22,7 @@
       "executor": 1,
       "status": 1,
       "date_created": "2023-01-27T09:20:43.123Z",
-      "label": [1]
+      "labels": [1]
     }
   },
   {
@@ -35,7 +35,7 @@
       "executor": 1,
       "status": 2,
       "date_created": "2023-01-27T12:45:30.456Z",
-      "label": [1, 2]
+      "labels": [1, 2]
     }
   }
 ]
