@@ -3,7 +3,9 @@
 {% load bootstrap4 %}
 {% load i18n %}
 
-{% block title %}{{ page_title }} | {% trans 'Task Manager' %}{% endblock %}
+{% block title %}
+    {{ title }} | {% trans 'Task Manager' %}
+{% endblock %}
 
 {% block content %}
     <h1 class="my-4">{{ title }}</h1>
@@ -11,12 +13,12 @@
     <a class="nav-link" href="{% url 'task_create' %}">{% trans 'Create task' %}</a>
 
     <div class="card mb-3">
-      <div class="card-body bg-light">
-          <form class="form-inline center" method="get">
+        <div class="card-body bg-light">
+            <form class="form-inline center" method="get">
               {% bootstrap_form filter.form field_class="ml-2 mr-3" %}
               {% bootstrap_button button_text button_type="submit" button_class="btn btn-primary" %}
-          </form>
-      </div>
+            </form>
+        </div>
     </div>
 
     <table class="table table-striped">
@@ -43,9 +45,9 @@
                         <td>{{ task.executor }}</td>
                         <td>{{ task.date_created|date:"d.m.Y H:i" }}</td>
                         <td>
-                          <a href="{% url 'task_update' task.id %}">{% trans 'Update' %}</a>
-                          <br>
-                          <a href="{% url 'task_delete' task.id %}">{% trans 'Delete' %}</a>
+                            <a href="{% url 'task_update' task.id %}">{% trans 'Update' %}</a>
+                            <br>
+                            <a href="{% url 'task_delete' task.id %}">{% trans 'Delete' %}</a>
                         </td>
                     </tr>
                 {% endfor %}
