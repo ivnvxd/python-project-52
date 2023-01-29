@@ -1,4 +1,4 @@
-from django.test import TestCase, Client, modify_settings
+from django.test import TestCase, Client, modify_settings, override_settings
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ObjectDoesNotExist
@@ -10,9 +10,16 @@ from task_manager.statuses.models import Status
 from task_manager.labels.models import Label
 
 
-@modify_settings(MIDDLEWARE={
-    'remove': ['rollbar.contrib.django.middleware.RollbarNotifierMiddleware',]
-})
+english = override_settings(
+    LANGUAGE_CODE='en-US', LANGUAGES=(('en', 'English'),),
+)
+remove_rollbar = modify_settings(MIDDLEWARE={'remove': [
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
+]})
+
+
+@english
+@remove_rollbar
 class TaskTestCase(TestCase):
     fixtures = ['user.json', 'status.json', 'task.json', 'label.json']
     test_task = load_data('test_task.json')

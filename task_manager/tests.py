@@ -1,13 +1,20 @@
-from django.test import TestCase, Client, modify_settings
+from django.test import TestCase, Client, modify_settings, override_settings
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 from task_manager.users.models import User
 
 
-@modify_settings(MIDDLEWARE={
-    'remove': ['rollbar.contrib.django.middleware.RollbarNotifierMiddleware',]
-})
+english = override_settings(
+    LANGUAGE_CODE='en-US', LANGUAGES=(('en', 'English'),),
+)
+remove_rollbar = modify_settings(MIDDLEWARE={'remove': [
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
+]})
+
+
+@english
+@remove_rollbar
 class HomeTestCase(TestCase):
     def setUp(self) -> None:
         self.client = Client()
