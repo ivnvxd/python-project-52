@@ -1,11 +1,13 @@
-from django.test import TestCase
-from django.test import Client
+from django.test import TestCase, Client, modify_settings
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 from task_manager.users.models import User
 
 
+@modify_settings(MIDDLEWARE={
+    'remove': ['rollbar.contrib.django.middleware.RollbarNotifierMiddleware',]
+})
 class HomeTestCase(TestCase):
     def setUp(self) -> None:
         self.client = Client()

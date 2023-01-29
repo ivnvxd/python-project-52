@@ -1,5 +1,4 @@
-from django.test import TestCase
-from django.test import Client
+from django.test import TestCase, Client, modify_settings
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ObjectDoesNotExist
@@ -9,6 +8,9 @@ from .models import Status
 from task_manager.users.models import User
 
 
+@modify_settings(MIDDLEWARE={
+    'remove': ['rollbar.contrib.django.middleware.RollbarNotifierMiddleware',]
+})
 class StatusTestCase(TestCase):
     fixtures = ['user.json', 'status.json', 'task.json', 'label.json']
     test_status = load_data('test_status.json')
@@ -27,7 +29,7 @@ class StatusTestCase(TestCase):
         self.client.force_login(self.user1)
 
 
-class TestReadStatus(StatusTestCase):
+class TestListStatuses(StatusTestCase):
     def test_statuses_view(self) -> None:
         response = self.client.get(reverse_lazy('statuses'))
 
