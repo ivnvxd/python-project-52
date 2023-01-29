@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-29 15:45+0100\n"
+"POT-Creation-Date: 2023-01-29 19:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
 #: task_manager/labels/forms.py:10 task_manager/labels/models.py:10
 #: task_manager/statuses/forms.py:10 task_manager/statuses/models.py:10
 #: task_manager/tasks/models.py:14 task_manager/templates/labels/labels.html:19
@@ -37,29 +38,28 @@ msgid "Creation date"
 msgstr "Дата создания"
 
 #: task_manager/labels/models.py:21 task_manager/tasks/filters.py:13
-#: task_manager/tasks/models.py:49
 msgid "Label"
 msgstr "Метка"
 
 #: task_manager/labels/models.py:22 task_manager/labels/views.py:21
-#: task_manager/templates/navbar.html:20
+#: task_manager/tasks/models.py:49 task_manager/templates/navbar.html:20
 #: task_manager/templates/tasks/task_show.html:47
 msgid "Labels"
 msgstr "Метки"
 
-#: task_manager/labels/tests.py:108 task_manager/statuses/tests.py:108
-#: task_manager/tasks/tests.py:211 task_manager/users/tests.py:78
-#: task_manager/users/tests.py:167
+#: task_manager/labels/tests.py:115 task_manager/statuses/tests.py:115
+#: task_manager/tasks/tests.py:218 task_manager/users/tests.py:85
+#: task_manager/users/tests.py:174
 msgid "This field is required."
 msgstr "Это поле обязательно для заполнения."
 
-#: task_manager/labels/tests.py:129
+#: task_manager/labels/tests.py:136
 msgid "Label with this Name already exists."
 msgstr "Label с таким Имя уже существует."
 
-#: task_manager/labels/tests.py:148 task_manager/statuses/tests.py:148
-#: task_manager/tasks/tests.py:263 task_manager/users/tests.py:141
-#: task_manager/users/tests.py:148 task_manager/users/tests.py:155
+#: task_manager/labels/tests.py:155 task_manager/statuses/tests.py:155
+#: task_manager/tasks/tests.py:270 task_manager/users/tests.py:148
+#: task_manager/users/tests.py:155 task_manager/users/tests.py:162
 msgid "Ensure this value has at most 150 characters "
 msgstr "Убедитесь, что это значение содержит не более 150 символов"
 
@@ -121,7 +121,7 @@ msgstr "Статус"
 msgid "Statuses"
 msgstr "Статусы"
 
-#: task_manager/statuses/tests.py:129
+#: task_manager/statuses/tests.py:136
 msgid "Status with this Name already exists."
 msgstr "Status с таким Имя уже существует."
 
@@ -183,7 +183,7 @@ msgstr "Задача"
 msgid "Tasks"
 msgstr "Задачи"
 
-#: task_manager/tasks/tests.py:244
+#: task_manager/tasks/tests.py:251
 msgid "Task with this Name already exists."
 msgstr "Task с таким Имя уже существует."
 
@@ -237,7 +237,7 @@ msgstr "Страница не найдена"
 #: task_manager/templates/tasks/task_show.html:7
 #: task_manager/templates/tasks/tasks.html:7
 #: task_manager/templates/users/delete.html:6
-#: task_manager/templates/users/users.html:6 task_manager/tests.py:28
+#: task_manager/templates/users/users.html:6 task_manager/tests.py:35
 msgid "Task Manager"
 msgstr "Менеджер задач"
 
@@ -320,23 +320,23 @@ msgstr "Имя"
 msgid "Last name"
 msgstr "Фамилия"
 
-#: task_manager/users/tests.py:108
+#: task_manager/users/tests.py:115
 msgid ""
 "Enter a valid username. This value may contain only letters, numbers, and "
 "@/./+/-/_ characters."
 msgstr ""
-"Введите правильное имя пользователя. Оно может содержать только буквы, цифры и "
-"знаки @/./+/-/_."
+"Введите правильное имя пользователя. Оно может содержать только буквы, цифры "
+"и знаки @/./+/-/_."
 
-#: task_manager/users/tests.py:123
+#: task_manager/users/tests.py:130
 msgid "A user with that username already exists."
 msgstr "Пользователь с таким именем уже существует."
 
-#: task_manager/users/tests.py:191
+#: task_manager/users/tests.py:198
 msgid "The two password fields didn’t match."
 msgstr "Введенные пароли не совпадают."
 
-#: task_manager/users/tests.py:205
+#: task_manager/users/tests.py:212
 msgid "This password is too short. It must contain at least 3 characters."
 msgstr "Введённый пароль слишком короткий. Он должен содержать как минимум 3 символа."
 
