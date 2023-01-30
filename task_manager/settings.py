@@ -168,3 +168,9 @@ ROLLBAR = {
     'environment': 'development' if DEBUG else 'production',
     'root': BASE_DIR,
 }
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.railway.app',
+    'https://127.0.0.1',
+    'https://localhost',
+]
