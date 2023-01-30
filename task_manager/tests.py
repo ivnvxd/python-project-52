@@ -68,3 +68,17 @@ class TestLoginUser(HomeTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertRedirects(response, reverse_lazy('home'))
         self.assertTrue(response.context['user'].is_authenticated)
+
+
+class TestLogoutUser(HomeTestCase):
+    def test_user_logout(self) -> None:
+        self.client.force_login(self.user)
+
+        response = self.client.post(
+            reverse_lazy('logout'),
+            follow=True
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertRedirects(response, reverse_lazy('home'))
+        self.assertFalse(response.context['user'].is_authenticated)
