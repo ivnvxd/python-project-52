@@ -11,7 +11,7 @@ test_english = override_settings(
 remove_rollbar = modify_settings(
     MIDDLEWARE={
         'remove':
-            ['rollbar.contrib.django.middleware.RollbarNotifierMiddleware',]
+            ['rollbar.contrib.django.middleware.RollbarNotifierMiddleware', ]
     }
 )
 
