@@ -23,3 +23,5 @@ coverage.xml
 .vim
 
 .env
+
+db.sqlite3
