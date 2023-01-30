@@ -28,5 +28,6 @@ class TaskTestCase(TestCase):
         self.status1 = Status.objects.get(pk=1)
 
         self.label2 = Label.objects.get(pk=2)
+        self.labels = Label.objects.filter(pk=2)
 
         self.client.force_login(self.user1)
