@@ -1,70 +1,12 @@
-from django.test import TestCase, Client, modify_settings, override_settings
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ObjectDoesNotExist
 
-from task_manager.helpers import load_data
-from .models import User
-
-
-english = override_settings(
-    LANGUAGE_CODE='en-US', LANGUAGES=(('en', 'English'),),
-)
-remove_rollbar = modify_settings(MIDDLEWARE={'remove': [
-    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
-]})
-
-
-@english
-@remove_rollbar
-class UserTestCase(TestCase):
-    fixtures = ['user.json', 'status.json', 'task.json', 'label.json']
-    test_user = load_data('test_user.json')
-
-    def setUp(self) -> None:
-        self.client = Client()
-
-        self.user1 = User.objects.get(pk=1)
-        self.user2 = User.objects.get(pk=2)
-        self.user3 = User.objects.get(pk=3)
-        self.users = User.objects.all()
-        self.count = User.objects.count()
-
-
-class TestListUsers(UserTestCase):
-    def test_users_view(self) -> None:
-        response = self.client.get(reverse_lazy('users'))
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, template_name='users/users.html')
-
-    def test_users_content(self) -> None:
-        response = self.client.get(reverse_lazy('users'))
-
-        self.assertEqual(len(response.context['users']), self.count)
-        self.assertQuerysetEqual(
-            response.context['users'],
-            self.users,
-            ordered=False
-        )
-
-    def test_users_links(self) -> None:
-        response = self.client.get(reverse_lazy('users'))
-
-        self.assertContains(response, '/users/create/')
-
-        for pk in range(1, self.count + 1):
-            self.assertContains(response, f'/users/{pk}/update/')
-            self.assertContains(response, f'/users/{pk}/delete/')
+from task_manager.users.models import User
+from .testcase import UserTestCase
 
 
 class TestCreateUser(UserTestCase):
-    def test_sign_up_view(self) -> None:
-        response = self.client.get(reverse_lazy('sign_up'))
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, template_name='form.html')
-
     def test_create_valid_user(self) -> None:
         user_data = self.test_user['create']['valid'].copy()
         response = self.client.post(reverse_lazy('sign_up'), data=user_data)
@@ -219,34 +161,6 @@ class TestCreateUser(UserTestCase):
 
 
 class TestUpdateUser(UserTestCase):
-    def test_update_self_view(self) -> None:
-        self.client.force_login(self.user2)
-
-        response = self.client.get(
-            reverse_lazy('user_update', kwargs={'pk': 2})
-        )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, template_name='form.html')
-
-    def test_update_not_logged_in_view(self) -> None:
-        response = self.client.get(
-            reverse_lazy('user_update', kwargs={'pk': 2})
-        )
-
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse_lazy('login'))
-
-    def test_update_other_view(self) -> None:
-        self.client.force_login(self.user1)
-
-        response = self.client.get(
-            reverse_lazy('user_update', kwargs={'pk': 2})
-        )
-
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse_lazy('users'))
-
     def test_update_self(self) -> None:
         self.client.force_login(self.user2)
 
@@ -285,34 +199,6 @@ class TestUpdateUser(UserTestCase):
 
 
 class TestDeleteUser(UserTestCase):
-    def test_delete_self_view(self) -> None:
-        self.client.force_login(self.user3)
-
-        response = self.client.get(
-            reverse_lazy('user_delete', kwargs={'pk': 3})
-        )
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, template_name='users/delete.html')
-
-    def test_delete_not_logged_in_view(self) -> None:
-        response = self.client.get(
-            reverse_lazy('user_delete', kwargs={'pk': 3})
-        )
-
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse_lazy('login'))
-
-    def test_delete_other_view(self) -> None:
-        self.client.force_login(self.user1)
-
-        response = self.client.get(
-            reverse_lazy('user_delete', kwargs={'pk': 3})
-        )
-
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse_lazy('users'))
-
     def test_delete_self(self) -> None:
         self.client.force_login(self.user2)
 
