@@ -1,36 +1,6 @@
-from django.test import TestCase, Client, modify_settings
 from django.urls import reverse_lazy
 
-from task_manager.tasks.models import Task
-from task_manager.users.models import User
-from task_manager.statuses.models import Status
-from task_manager.labels.models import Label
-
-
-remove_rollbar = modify_settings(MIDDLEWARE={'remove': [
-    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
-]})
-
-
-@remove_rollbar
-class TaskTestCase(TestCase):
-    fixtures = ['user.json', 'status.json', 'task.json', 'label.json']
-
-    def setUp(self) -> None:
-        self.client = Client()
-
-        self.task1 = Task.objects.get(pk=1)
-        self.task2 = Task.objects.get(pk=2)
-        self.task3 = Task.objects.get(pk=3)
-
-        self.tasks = Task.objects.all()
-        self.count = Task.objects.count()
-
-        self.user1 = User.objects.get(pk=1)
-        self.status1 = Status.objects.get(pk=1)
-        self.label2 = Label.objects.get(pk=2)
-
-        self.client.force_login(self.user1)
+from .testcase import TaskTestCase
 
 
 class TestListTasks(TaskTestCase):
@@ -157,3 +127,67 @@ class TestDetailedTask(TaskTestCase):
 
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse_lazy('login'))
+
+
+class TestCreateTaskView(TaskTestCase):
+    def test_create_task_view(self) -> None:
+        response = self.client.get(reverse_lazy('task_create'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template_name='form.html')
+
+    def test_create_task_not_logged_in_view(self) -> None:
+        self.client.logout()
+
+        response = self.client.get(reverse_lazy('task_create'))
+
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse_lazy('login'))
+
+
+class TestUpdateTaskView(TaskTestCase):
+    def test_update_task_view(self) -> None:
+        response = self.client.get(
+            reverse_lazy('task_update', kwargs={'pk': 2})
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template_name='form.html')
+
+    def test_update_not_logged_in_view(self) -> None:
+        self.client.logout()
+
+        response = self.client.get(
+            reverse_lazy('task_update', kwargs={'pk': 2})
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse_lazy('login'))
+
+
+class TestDeleteTaskView(TaskTestCase):
+    def test_delete_task_view(self) -> None:
+        response = self.client.get(
+            reverse_lazy('task_delete', kwargs={'pk': 1})
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template_name='tasks/delete.html')
+
+    def test_delete_task_not_logged_in_view(self) -> None:
+        self.client.logout()
+
+        response = self.client.get(
+            reverse_lazy('task_delete', kwargs={'pk': 1})
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse_lazy('login'))
+
+    def test_delete_task_unauthorised_view(self) -> None:
+        response = self.client.get(
+            reverse_lazy('task_delete', kwargs={'pk': 3})
+        )
+
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse_lazy('tasks'))

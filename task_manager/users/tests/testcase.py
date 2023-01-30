@@ -1,19 +1,10 @@
-from django.test import TestCase, Client, modify_settings, override_settings
+from django.test import TestCase, Client
 
-from task_manager.helpers import load_data
+from task_manager.helpers import load_data, test_english, remove_rollbar
 from task_manager.users.models import User
 
 
-english = override_settings(
-    LANGUAGE_CODE='en-US', LANGUAGES=(('en', 'English'),),
-)
-
-remove_rollbar = modify_settings(MIDDLEWARE={'remove': [
-    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
-]})
-
-
-@english
+@test_english
 @remove_rollbar
 class UserTestCase(TestCase):
     fixtures = ['user.json', 'status.json', 'task.json', 'label.json']
