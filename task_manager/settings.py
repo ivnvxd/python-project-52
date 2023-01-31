@@ -129,12 +129,10 @@ AUTH_USER_MODEL = 'users.User'
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-if os.getenv('HEXLET_ID'):
-    LANGUAGE_CODE = 'ru-ru'
-elif os.getenv('LANGUAGE'):
+if os.getenv('LANGUAGE'):
     LANGUAGE_CODE = os.getenv('LANGUAGE')
 else:
-    LANGUAGE_CODE = 'en-us'
+    LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
