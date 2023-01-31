@@ -108,12 +108,41 @@ The project uses the Poetry dependency manager. To install Poetry use its [offic
 
 #### PostgreSQL / SQLite
 
-As database the PostgreSQL database system is being used. You need to install it first. You can download the ready-to-use package from [official website](https://www.postgresql.org/download/) or use Homebrew:
+There are two main options for using a database management system for this project: PostgreSQL and SQLite.
+
+PostgreSQL is used as the main database management system. You have to install it first. It can be downloaded from [official website](https://www.postgresql.org/download/) or installed using Homebrew:
 ```shell
 >> brew install postgresql
 ```
 
+_Alternatively you can skip this step and use SQLite database locally._
+
 ### Application
+
+To use the application, you need to clone the repository to your computer. This is done using the `git clone` command. Clone the project:
+
+```bash
+>> git clone https://github.com/ivnvxd/python-project-52.git && cd python-project-52
+```
+
+Then you need to install all necessary dependencies:
+
+```bash
+>> make install
+```
+
+Create `.env` file in the root folder and add following variables:
+```
+DATABASE_URL = postgresql://{provider}://{user}:{password}@{host}:{port}/{db}
+SECRET_KEY = '{your secret key}'
+ROLLBAR_ACCESS_TOKEN = '{your Rollbar token}'
+```
+_If you choose to use SQLite DBMS, do not add `DATABASE_URL` variable._
+
+To create the necessary tables in the database, start the migration process
+```bash
+>> make migrate
+```
 
 ---
 
