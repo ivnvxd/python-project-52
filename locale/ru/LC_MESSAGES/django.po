@@ -255,7 +255,7 @@ msgstr "Вернуться на главную"
 
 #: task_manager/templates/index.html:14
 msgid "Simple and flexible task management web application"
-msgstr "Простое и гибкое веб-приложение для управления задачами"
+msgstr "Простое веб-приложение для управления задачами"
 
 #: task_manager/templates/index.html:24
 msgid "Get Started"
