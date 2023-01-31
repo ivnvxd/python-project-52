@@ -30,6 +30,7 @@ A flexible task management web application
 * [About](#about)
   * [Features](#features)
   * [Built With](#built-with)
+  * [Details](#details)
 * [Installation](#installation)
   * [Prerequisites](#prerequisites)
   * [Application](#application)
@@ -62,6 +63,20 @@ The frontend is rendered on the backend. This means that the page is built by th
 * [x] Filter the tasks displayed;
 * [x] User authentication and registration;
 
+### Built With
+
+* [Python](https://www.python.org/)
+* [Django](https://www.djangoproject.com/)
+* [Bootstrap 4](https://getbootstrap.com/)
+* [PostgreSQL](https://www.postgresql.org/)
+* [Poetry](https://python-poetry.org/)
+* [Gunicorn](https://gunicorn.org/)
+* [Whitenoise](http://whitenoise.evans.io/en/latest/)
+* [Rollbar](https://rollbar.com/)
+* [Flake8](https://flake8.pycqa.org/en/latest/)
+
+### Details
+
 For **_user_** authentication, the standard Django tools are used. In this project, users will be authorized for all actions, that is, everything is available to everyone.
 
 Each task in the task manager usually has a **_status_**. With its help you can understand what is happening to the task, whether it is done or not. Tasks can be, for example, in the following statuses: _new, in progress, in testing, completed_.
@@ -71,20 +86,6 @@ Each task in the task manager usually has a **_status_**. With its help you can 
 **_Labels_** are a flexible alternative to categories. They allow you to group the tasks by different characteristics, such as bugs, features, and so on. Labels are related to the task of relating many to many.
 
 When the tasks become numerous, it becomes difficult to navigate through them. For this purpose, a **_filtering mechanism_** has been implemented, which has the ability to filter tasks by status, performer, label presence, and has the ability to display tasks whose author is the current user.
-
-### Built With
-
-* [Python](https://www.python.org/)
-* [Django](https://www.djangoproject.com/)
-* [Bootstrap 4](https://getbootstrap.com/)
-* [PostgreSQL](https://www.postgresql.org/)
-
-
-* [Poetry](https://python-poetry.org/)
-* [Gunicorn](https://gunicorn.org/)
-* [Whitenoise](http://whitenoise.evans.io/en/latest/)
-* [Rollbar](https://rollbar.com/)
-* [Flake8](https://flake8.pycqa.org/en/latest/)
 
 ---
 
