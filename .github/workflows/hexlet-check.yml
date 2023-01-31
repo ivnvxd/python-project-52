@@ -22,8 +22,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Hexlet project check
-        env:
-          LANGUAGE: ${{ secrets.LANGUAGE }}
         uses: hexlet/project-action@release
         with:
           hexlet-id: ${{ secrets.HEXLET_ID }}
+          LANGUAGE: ${{ secrets.LANGUAGE }}
