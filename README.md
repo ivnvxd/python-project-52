@@ -54,6 +54,8 @@ The frontend is rendered on the backend. This means that the page is built by th
 
 [PostgreSQL](https://www.postgresql.org/) is used as the object-relational database system.
 
+#### [Demo](https://python-task-manager.up.railway.app/)
+
 ### Features
 
 * [x] Set tasks;
@@ -81,7 +83,7 @@ For **_user_** authentication, the standard Django tools are used. In this proje
 
 Each task in the task manager usually has a **_status_**. With its help you can understand what is happening to the task, whether it is done or not. Tasks can be, for example, in the following statuses: _new, in progress, in testing, completed_.
 
-**_Tasks_** are the main entity in any task manager. A task consists of a name and a description. Each task can have a person to whom it is assigned. It is assumed that this person performs the task. Also each task has mandatory fields - author (set automatically when creating the task) and status.
+**_Tasks_** are the main entity in any task manager. A task consists of a name and a description. Each task can have a person to whom it is assigned. It is assumed that this person performs the task. Also, each task has mandatory fields - author (set automatically when creating the task) and status.
 
 **_Labels_** are a flexible alternative to categories. They allow you to group the tasks by different characteristics, such as bugs, features, and so on. Labels are related to the task of relating many to many.
 
@@ -136,10 +138,11 @@ Create `.env` file in the root folder and add following variables:
 DATABASE_URL = postgresql://{provider}://{user}:{password}@{host}:{port}/{db}
 SECRET_KEY = '{your secret key}'
 ROLLBAR_ACCESS_TOKEN = '{your Rollbar token}'
+LANGUAGE=en-us
 ```
 _If you choose to use SQLite DBMS, do not add `DATABASE_URL` variable._
 
-To create the necessary tables in the database, start the migration process
+To create the necessary tables in the database, start the migration process:
 ```bash
 >> make migrate
 ```
