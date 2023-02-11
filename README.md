@@ -35,6 +35,7 @@ A flexible task management web application
   * [Prerequisites](#prerequisites)
   * [Application](#application)
 * [Usage](#usage)
+  * [Available Actions](#available-actions-)
 * [Demo](#demo)
 * [Additionally](#additionally)
   * [Dependencies](#dependencies)
@@ -54,7 +55,7 @@ The frontend is rendered on the backend. This means that the page is built by th
 
 [PostgreSQL](https://www.postgresql.org/) is used as the object-relational database system.
 
-#### [Demo](https://python-task-manager.up.railway.app/)
+#### --> [Demo](https://python-task-manager.up.railway.app/) <--
 
 ### Features
 
@@ -110,14 +111,14 @@ The project uses the Poetry dependency manager. To install Poetry use its [offic
 
 #### PostgreSQL / SQLite
 
-There are two main options for using a database management system for this project: PostgreSQL and SQLite.
+There are two main options for using a database management system for this project: **PostgreSQL** and **SQLite**.
 
 PostgreSQL is used as the main database management system. You have to install it first. It can be downloaded from [official website](https://www.postgresql.org/download/) or installed using Homebrew:
 ```shell
 >> brew install postgresql
 ```
 
-_Alternatively you can skip this step and use SQLite database locally._
+_Alternatively you can skip this step and use **SQLite** database locally._
 
 ### Application
 
@@ -127,7 +128,7 @@ To use the application, you need to clone the repository to your computer. This 
 >> git clone https://github.com/ivnvxd/python-project-52.git && cd python-project-52
 ```
 
-Then you need to install all necessary dependencies:
+After that install all necessary dependencies:
 
 ```bash
 >> make install
@@ -140,7 +141,7 @@ SECRET_KEY = '{your secret key}'
 ROLLBAR_ACCESS_TOKEN = '{your Rollbar token}'
 LANGUAGE=en-us
 ```
-_If you choose to use SQLite DBMS, do not add `DATABASE_URL` variable._
+_If you choose to use **SQLite** DBMS, do not add `DATABASE_URL` variable._
 
 To create the necessary tables in the database, start the migration process:
 ```bash
@@ -150,6 +151,31 @@ To create the necessary tables in the database, start the migration process:
 ---
 
 ## Usage
+
+Start the Gunicorn Web-server by running:
+
+```shell
+>> make start
+```
+
+By default, the server will be available at http://0.0.0.0:8000.
+
+It is also possible to start it local in development mode using:
+
+```shell
+>> make dev
+```
+
+The dev server will be at http://127.0.0.1:8000.
+
+### Available Actions:
+
+- **_Registration_** — First, you need to register in the application using the registration form provided;
+- **_Authentication_** — To view the list of tasks and create new ones, you need to log in using the information from the registration form;
+- **_Users_** — You can see the list of all registered users on the corresponding page. It is available without authorization. You can change or delete information only about yourself. If a user is the author or performer of a task, it cannot be deleted;
+- **_Statuses_** — You can view, add, update, and delete task statuses if you are logged in. Statuses corresponding to any tasks cannot be deleted;
+- **_Tasks_** — You can view, add, and update tasks if you are logged in. Only the task creator can delete tasks. You can also filter tasks on the corresponding page with specified statuses, performers, and labels;
+- **_Labels_** — You can view, add, update, and delete task labels if you are logged in. Labels matching any tasks cannot be deleted.
 
 ---
 
@@ -187,12 +213,20 @@ The demo version is available on Railway platform:
 <dl>
     <dt><code>make install</code></dt>
     <dd>Install all dependencies of the package.</dd>
+    <dt><code>make migrate</code></dt>
+    <dd>Generate and apply database migrations.</dd>
+    <dt><code>make dev</code></dt>
+    <dd>Run Django development server at http://127.0.0.1:8000/</dd>
+    <dt><code>make start</code></dt>
+    <dd>Start the Gunicorn web server at http://0.0.0.0:8000 if no port is specified in the environment variables.</dd>
     <dt><code>make lint</code></dt>
     <dd>Check code with flake8 linter.</dd>
     <dt><code>make test</code></dt>
     <dd>Run tests.</dd>
     <dt><code>make check</code></dt>
     <dd>Validate structure of <code>pyproject.toml</code> file, check code with tests and linter.</dd>
+    <dt><code>make shell</code></dt>
+    <dd>Start Django shell (iPython REPL).</dd>
 </dl>
 
 ---
