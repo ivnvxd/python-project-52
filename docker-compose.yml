@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    command: >
+      sh -c "python manage.py makemigrations &&
+             python manage.py migrate &&
+             gunicorn -w 5 -b 0.0.0.0:8000 task_manager.wsgi"
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env
+    depends_on:
+      - db
+
+  db:
+    container_name: postgres
+    image: postgres:15.2-alpine
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - /var/lib/postgres
+    ports:
+      - "5432:5432"

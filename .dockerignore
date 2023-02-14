@@ -1,0 +1,45 @@
+.DS_Store
+.Trashes
+.Spotlight-V100
+Thumbs.db
+$RECYCLE.BIN/
+
+# VsCode
+.vscode
+
+# Idea
+.idea
+
+# Python
+*.egg-info
+dist/
+.venv/
+.vim
+
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+pip-log.txt
+pip-delete-this-directory.txt
+.tox
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git
+.mypy_cache
+.pytest_cache
+.hypothesis
+
+# Other
+# .env
+.github
+README.md
+poetry.lock
+pyproject.toml
