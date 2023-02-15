@@ -4,7 +4,7 @@
 <h1>Task Manager</h1>
 
 <p>
-A flexible task management web application
+A simple and flexible task management web application
 </p>
 
 [![Actions Status](https://github.com/ivnvxd/python-project-52/workflows/hexlet-check/badge.svg)](https://github.com/ivnvxd/python-project-52/actions)
@@ -32,8 +32,10 @@ A flexible task management web application
   * [Built With](#built-with)
   * [Details](#details)
 * [Installation](#installation)
-  * [Prerequisites](#prerequisites)
-  * [Application](#application)
+  * [Easy Mode](#easy-mode)
+  * [Manual Install](#manual-install)
+    * [Prerequisites](#prerequisites)
+    * [Application](#application)
 * [Usage](#usage)
   * [Available Actions](#available-actions-)
 * [Demo](#demo)
@@ -74,6 +76,7 @@ The frontend is rendered on the backend. This means that the page is built by th
 * [PostgreSQL](https://www.postgresql.org/)
 * [Poetry](https://python-poetry.org/)
 * [Gunicorn](https://gunicorn.org/)
+* [Docker](https://www.docker.com/)
 * [Whitenoise](http://whitenoise.evans.io/en/latest/)
 * [Rollbar](https://rollbar.com/)
 * [Flake8](https://flake8.pycqa.org/en/latest/)
@@ -93,6 +96,33 @@ When the tasks become numerous, it becomes difficult to navigate through them. F
 ---
 
 ## Installation
+
+### _Easy Mode:_
+
+Why not just let [Docker Compose](https://docs.docker.com/compose/) do all the work, right? Of course, for the magic to happen, [Docker](https://docs.docker.com/desktop/) must be installed and running. 
+
+Clone the project:
+```bash
+>> git clone https://github.com/ivnvxd/python-project-52.git && cd python-project-52
+```
+
+Create `.env` file in the root folder and add following variables:
+```dotenv
+DATABASE_URL=postgresql://postgres:password@db:5432/postgres
+SECRET_KEY={your secret key} # Django will refuse to start if SECRET_KEY is not set
+LANGUAGE=en-us # By default the app will use ru-ru locale
+```
+
+And run:
+```shell
+>> docker-compose up
+```
+
+Voila! The server is running at http://0.0.0.0:8000 and you can skip directly to [Available Actions](#available-actions-) section.
+
+### _Manual Install:_
+
+There is always an option for those who like to do everything by themselves.
 
 ### Prerequisites
 
@@ -135,11 +165,10 @@ After that install all necessary dependencies:
 ```
 
 Create `.env` file in the root folder and add following variables:
-```
-DATABASE_URL = postgresql://{provider}://{user}:{password}@{host}:{port}/{db}
-SECRET_KEY = '{your secret key}'
-ROLLBAR_ACCESS_TOKEN = '{your Rollbar token}'
-LANGUAGE=en-us
+```dotenv
+DATABASE_URL=postgresql://{provider}://{user}:{password}@{host}:{port}/{db}
+SECRET_KEY={your secret key} # Django will refuse to start if SECRET_KEY is not set
+LANGUAGE=en-us # By default the app will use ru-ru locale
 ```
 _If you choose to use **SQLite** DBMS, do not add `DATABASE_URL` variable._
 
@@ -200,7 +229,7 @@ The demo version is available on Railway platform:
 * django-extensions = "^3.2.1"
 * django-filter = "^22.1"
 * rollbar = "^0.16.3"
-* psycopg2-binary = "^2.9.5"
+* psycopg2 = "^2.9.5"
 
 ### Dev Dependencies
 
@@ -235,11 +264,13 @@ The demo version is available on Railway platform:
 <details><summary style="font-size:larger;"><b>Project Tree</b></summary>
 
 ```bash
-.
+.              
+├── Dockerfile
 ├── Makefile
 ├── README.md
 ├── coverage.xml
 ├── db.sqlite3
+├── docker-compose.yml
 ├── locale
 │   └── ru
 │       └── LC_MESSAGES
@@ -248,6 +279,7 @@ The demo version is available on Railway platform:
 ├── manage.py
 ├── poetry.lock
 ├── pyproject.toml
+├── requirements.txt
 ├── setup.cfg
 ├── static
 └── task_manager
